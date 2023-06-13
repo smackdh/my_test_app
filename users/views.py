@@ -4,3 +4,5 @@ from django.http import HttpResponse
 
 def users(request):
     return HttpResponse("Hi there!")
+
+# Create an actual action, rendering a page.

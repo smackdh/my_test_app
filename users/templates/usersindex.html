@@ -8,5 +8,11 @@
 <body>
   <h1>Hello there!</h1>
       <p>This is a django project</p>
+
+  <ul>
+    {% for x in users %}
+    <li>{{ x.firstname }} {{x.lastname}}</li>
+    {% endfor %}
+  </ul>
 </body>
 </html>

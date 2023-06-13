@@ -1,21 +1,21 @@
 from django.shortcuts import render
-
-from django.http import JsonResponse
-from django.template import loader
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 from .models import User
 
 # Create your views here.
 
 
-def users(request):
-    if request.method == "GET":
+class UserListAPIView(APIView):
+    def get(self, request):
         users = User.objects.all().values()
-        json_data = list(users)
-        return JsonResponse(json_data, safe=False)
-    elif request.method == "DELETE":
-        user = User.objects.all()
-    else:
-        return JsonResponse({"message": "Invalid request method"})
+        return Response(users)
+
+    def delete(self, request, pk):
+        user = User.objects.get(pk=pk)
+        user.delete()
+        return Response({"message": "user deleted."})
 
 
 # Create an actual action, rendering a page.

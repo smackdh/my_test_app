@@ -28,5 +28,14 @@ class UserListAPIView(APIView):
 
         return Response({"message": "something went wrong with the serializer"})
 
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            print(f"User object: {serializer}")
+            return Response({"message": "User added"})
+
+        return Response({"message": "something went wrong with the serializer"})
+
 
 # Create an actual action, rendering a page.

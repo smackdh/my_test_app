@@ -18,5 +18,15 @@ class UserListAPIView(APIView):
         user.delete()
         return Response({"message": "user deleted."})
 
+    def put(self, request, pk):
+        user = User.objects.get(pk=pk)
+        serializer = UserSerializer(user, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "user information updated"})
+
+        return Response({"message": "something went wrong with the serializer"})
+
 
 # Create an actual action, rendering a page.
